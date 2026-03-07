@@ -1,6 +1,6 @@
 {
 	"name": "@juanibiapina/pi-extension-settings",
-	"version": "0.5.0",
+	"version": "0.5.1",
 	"description": "Pi extension for centralized settings management across extensions",
 	"type": "module",
 	"main": "dist/index.js",
@@ -25,7 +25,9 @@
 		"utilities"
 	],
 	"pi": {
-		"extensions": ["./dist/index.js"]
+		"extensions": [
+			"./dist/index.js"
+		]
 	},
 	"author": "Juan Ibiapina",
 	"license": "MIT",
