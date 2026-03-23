@@ -6,7 +6,7 @@
  * Value is stored as a comma-separated string of selected IDs in order.
  */
 
-import { type Component, getEditorKeybindings, matchesKey, truncateToWidth } from "@mariozechner/pi-tui";
+import { type Component, getKeybindings, matchesKey, truncateToWidth } from "@mariozechner/pi-tui";
 import type { OrderedListOption } from "../settings/types.js";
 import type { SettingsListTheme } from "./settings-list.js";
 
@@ -76,18 +76,18 @@ export class OrderedMultiSelect implements Component {
 	}
 
 	handleInput(data: string): void {
-		const kb = getEditorKeybindings();
+		const kb = getKeybindings();
 		const items = this.buildDisplayItems();
 		if (items.length === 0) {
-			if (kb.matches(data, "selectCancel")) {
+			if (kb.matches(data, "tui.select.cancel")) {
 				this.done(undefined);
 			}
 			return;
 		}
 
-		if (kb.matches(data, "selectUp") || matchesKey(data, "up")) {
+		if (kb.matches(data, "tui.select.up") || matchesKey(data, "up")) {
 			this.cursorIndex = this.cursorIndex === 0 ? items.length - 1 : this.cursorIndex - 1;
-		} else if (kb.matches(data, "selectDown") || matchesKey(data, "down")) {
+		} else if (kb.matches(data, "tui.select.down") || matchesKey(data, "down")) {
 			this.cursorIndex = this.cursorIndex === items.length - 1 ? 0 : this.cursorIndex + 1;
 		} else if (data === " " || matchesKey(data, "space")) {
 			this.toggleCurrent(items);
@@ -95,9 +95,9 @@ export class OrderedMultiSelect implements Component {
 			this.moveUp(items);
 		} else if (matchesKey(data, "shift+down")) {
 			this.moveDown(items);
-		} else if (kb.matches(data, "selectConfirm")) {
+		} else if (kb.matches(data, "tui.select.confirm")) {
 			this.done(this.selected.join(","));
-		} else if (kb.matches(data, "selectCancel")) {
+		} else if (kb.matches(data, "tui.select.cancel")) {
 			this.done(undefined);
 		}
 	}

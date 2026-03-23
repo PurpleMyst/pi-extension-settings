@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-03-23
+
+### Changed
+
+- **Breaking:** Requires pi >= 0.61.0 due to namespaced keybinding IDs
+- Migrated from removed `getEditorKeybindings()` to `getKeybindings()` with namespaced IDs (`tui.select.up`, `tui.select.down`, `tui.select.confirm`, `tui.select.cancel`)
+- Updated `@mariozechner/pi-coding-agent` dev dependency to ^0.62.0
+
 ## [0.5.1] - 2026-03-07
 
 ### Fixed
