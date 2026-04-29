@@ -15,13 +15,15 @@ export interface SettingStorageOptions {
 	scope?: "global" | "local";
 	/** Directory used for local settings. Defaults to process.cwd(). */
 	cwd?: string;
+	/** Directory used for global settings. Defaults to pi's agent directory. */
+	agentDir?: string;
 }
 
 /**
  * Get the global settings file path.
  */
-function getGlobalSettingsPath(): string {
-	return join(getAgentDir(), SETTINGS_FILE_NAME);
+function getGlobalSettingsPath(agentDir = getAgentDir()): string {
+	return join(agentDir, SETTINGS_FILE_NAME);
 }
 
 /**
@@ -75,8 +77,8 @@ export function getSetting(
 ): string | undefined {
 	const paths =
 		options.scope === "global"
-			? [getGlobalSettingsPath()]
-			: [getLocalSettingsPath(options.cwd), getGlobalSettingsPath()];
+			? [getGlobalSettingsPath(options.agentDir)]
+			: [getLocalSettingsPath(options.cwd), getGlobalSettingsPath(options.agentDir)];
 
 	for (const path of paths) {
 		const settings = loadSettingsFile(path);
@@ -104,7 +106,7 @@ export function setSetting(
 	value: string,
 	options: SettingStorageOptions = {},
 ): void {
-	const path = options.scope === "local" ? getLocalSettingsPath(options.cwd) : getGlobalSettingsPath();
+	const path = options.scope === "local" ? getLocalSettingsPath(options.cwd) : getGlobalSettingsPath(options.agentDir);
 	const settings = loadSettingsFile(path);
 
 	if (!settings[extensionName]) {
